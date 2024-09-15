@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Tailwind classes used in the FilterComponent */
+.filter-container {
+  @apply flex flex-col space-y-4;
+}
+
+.filter-select {
+  @apply border border-gray-300 rounded p-2;
+}
+
+.filter-input {
+  @apply border border-gray-300 rounded p-2 w-full;
+}
+
+.filter-button {
+  @apply bg-blue-500 text-white rounded px-4 py-2;
+}
+
+.charts-section {
+  @apply mt-8 space-y-6;
+}
+
+.chart-container {
+  @apply flex space-x-4;
+}
+
 /* ========================================== TAILWIND STYLES */
 @layer base {
   /* Remove scrollbar */

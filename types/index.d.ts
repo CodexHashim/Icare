@@ -22,6 +22,9 @@ declare interface RegisterUserParams extends CreateUserParams {
   birthDate: Date;
   gender: Gender;
   address: string;
+  country: string;
+  state: string;
+  city: string;
   occupation: string;
   emergencyContactName: string;
   emergencyContactNumber: string;

@@ -57,6 +57,9 @@ export const getUser = async (userId: string) => {
 // REGISTER PATIENT
 export const registerPatient = async ({
   identificationDocument,
+  country,
+  state,
+  city,
   ...patient
 }: RegisterUserParams) => {
   try {
@@ -83,6 +86,9 @@ export const registerPatient = async ({
         identificationDocumentUrl: file?.$id
           ? `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file.$id}/view??project=${PROJECT_ID}`
           : null,
+        country,
+        state,
+        city,
         ...patient,
       }
     );
