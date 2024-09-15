@@ -24,9 +24,6 @@ export const PatientFormDefaultValues = {
   treatmentConsent: false,
   disclosureConsent: false,
   privacyConsent: false,
-  Country: "",
-  State: "",
-  City: "",
 };
 
 export const IdentificationTypes = [
