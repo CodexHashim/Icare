@@ -1,13 +1,14 @@
 {
-  "plugins": ["import"],
   "extends": [
     "next/core-web-vitals",
     "standard",
     "plugin:tailwindcss/recommended",
     "prettier"
   ],
+  "plugins": ["import", "prettier", "tailwindcss"],
   "rules": {
     "no-undef": "off",
+    "prettier/prettier": ["error"],
     "import/order": [
       "error",
       {

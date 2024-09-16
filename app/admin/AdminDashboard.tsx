@@ -1,10 +1,11 @@
-// AdminDashboard.tsx
 "use client";
 
 import { useState } from "react";
-import { DataTable } from "./table/DataTable"; // Adjust based on your file structure
-import { columns } from "./table/columns"; // Adjust based on your file structure
+
 import { Patient } from "@/types/appwrite.types"; // Adjust based on your types
+
+import { columns } from "./table/columns"; // Adjust based on your file structure
+import { DataTable } from "./table/DataTable"; // Adjust based on your file structure
 
 interface AdminDashboardProps {
   appointments: Patient[]; // Define the prop type here
@@ -39,16 +40,16 @@ const AdminDashboard = ({ appointments }: AdminDashboardProps) => {
       <button
         onClick={handleLoadData}
         disabled={loading}
-        className="btn px-4 py-2 bg-blue-500 text-white rounded"
+        className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         {loading ? "Loading..." : "Load Data"}
       </button>
 
-      {error && <p className="text-red-500 mt-2">{error}</p>}
+      {error && <p className="mt-2 text-red-500">{error}</p>}
 
       {patients.length > 0 && (
         <div className="mt-4">
-          <h2 className="text-2xl font-semibold mb-4">Patients Data</h2>
+          <h2 className="mb-4 text-2xl font-semibold">Patients Data</h2>
           <DataTable columns={columns} data={patients} />
         </div>
       )}

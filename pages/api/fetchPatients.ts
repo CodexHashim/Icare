@@ -16,7 +16,7 @@ const databases = new Databases(client);
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   try {
     // Ensure you're passing the correct database ID
@@ -24,11 +24,9 @@ export default async function handler(
     res.status(200).json(response.documents);
   } catch (error) {
     console.error("Error fetching patients:", error); // Log detailed error
-    res
-      .status(500)
-      .json({
-        error: "Failed to fetch data",
-        details: (error as Error).message,
-      });
+    res.status(500).json({
+      error: "Failed to fetch data",
+      details: (error as Error).message,
+    });
   }
 }
