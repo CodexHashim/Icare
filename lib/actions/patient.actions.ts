@@ -23,7 +23,7 @@ export const createUser = async (user: CreateUserParams) => {
       user.email,
       user.phone,
       undefined,
-      user.name,
+      user.name
     );
 
     return parseStringify(newuser);
@@ -49,7 +49,7 @@ export const getUser = async (userId: string) => {
   } catch (error) {
     console.error(
       "An error occurred while retrieving the user details:",
-      error,
+      error
     );
   }
 };
@@ -70,7 +70,7 @@ export const registerPatient = async ({
         identificationDocument &&
         InputFile.fromBlob(
           identificationDocument?.get("blobFile") as Blob,
-          identificationDocument?.get("fileName") as string,
+          identificationDocument?.get("fileName") as string
         );
 
       file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile);
@@ -90,7 +90,7 @@ export const registerPatient = async ({
         state,
         city,
         ...patient,
-      },
+      }
     );
 
     return parseStringify(newPatient);
@@ -105,14 +105,14 @@ export const getPatient = async (userId: string) => {
     const patients = await databases.listDocuments(
       DATABASE_ID!,
       PATIENT_COLLECTION_ID!,
-      [Query.equal("userId", [userId])],
+      [Query.equal("userId", [userId])]
     );
 
     return parseStringify(patients.documents[0]);
   } catch (error) {
     console.error(
       "An error occurred while retrieving the patient details:",
-      error,
+      error
     );
   }
 };

@@ -59,7 +59,7 @@ export default function Page() {
                 if (!res.ok) {
                   throw new Error("Sentry Example Frontend Error");
                 }
-              },
+              }
             );
           }}
         >

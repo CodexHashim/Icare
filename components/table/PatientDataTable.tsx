@@ -22,15 +22,15 @@ import {
 } from "@/components/ui/table";
 import { decryptKey } from "@/lib/utils";
 
-interface DataTableProps<TData, TValue> {
+interface PatientDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function PatientDataTable<TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+}: PatientDataTableProps<TData, TValue>) {
   const encryptedKey =
     typeof window !== "undefined"
       ? window.localStorage.getItem("accessKey")
@@ -81,7 +81,10 @@ export function DataTable<TData, TValue>({
                 className="shad-table-row"
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell
+                    key={cell.id}
+                    className="text-sm md:text-base truncate"
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
