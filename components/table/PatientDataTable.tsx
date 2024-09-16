@@ -1,3 +1,5 @@
+"use client";
+
 import {
   getPaginationRowModel,
   ColumnDef,
@@ -5,7 +7,10 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import Image from "next/image"; // Re-added for image handling
+import Image from "next/image";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -15,16 +20,30 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { decryptKey } from "@/lib/utils";
 
-interface DataTableProps<TData, TValue> {
+interface PatientDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function PatientDataTable<TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+}: PatientDataTableProps<TData, TValue>) {
+  const encryptedKey =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("accessKey")
+      : null;
+
+  useEffect(() => {
+    const accessKey = encryptedKey && decryptKey(encryptedKey);
+
+    if (accessKey !== process.env.NEXT_PUBLIC_ADMIN_PASSKEY!.toString()) {
+      redirect("/");
+    }
+  }, [encryptedKey]);
+
   const table = useReactTable({
     data,
     columns,
@@ -33,33 +52,39 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="data-table overflow-x-auto w-full">
-      <Table className="min-w-[900px] max-w-full">
-        <TableHeader className="bg-dark-200">
+    <div className="data-table">
+      <Table className="shad-table">
+        <TableHeader className=" bg-dark-200">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id} className="shad-table-row-header">
-              {headerGroup.headers.map((header) => (
-                <TableHead key={header.id} className="text-left px-4 py-2">
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </TableHead>
-              ))}
+              {headerGroup.headers.map((header) => {
+                return (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                );
+              })}
             </TableRow>
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows.length ? (
+          {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
-                className="shad-table-row hover:bg-gray-100 transition duration-150"
+                data-state={row.getIsSelected() && "selected"}
+                className="shad-table-row"
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id} className="px-4 py-2">
+                  <TableCell
+                    key={cell.id}
+                    className="text-sm md:text-base truncate"
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
@@ -67,14 +92,14 @@ export function DataTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="text-center p-4">
-                No results found.
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                No results.
               </TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
-      <div className="table-actions flex justify-between items-center my-2">
+      <div className="table-actions">
         <Button
           variant="outline"
           size="sm"
@@ -83,10 +108,10 @@ export function DataTable<TData, TValue>({
           className="shad-gray-btn"
         >
           <Image
-            src="/assets/icons/arrow-left.svg"
+            src="/assets/icons/arrow.svg"
             width={24}
             height={24}
-            alt="Previous Page"
+            alt="arrow"
           />
         </Button>
         <Button
@@ -97,10 +122,10 @@ export function DataTable<TData, TValue>({
           className="shad-gray-btn"
         >
           <Image
-            src="/assets/icons/arrow-right.svg"
+            src="/assets/icons/arrow.svg"
             width={24}
             height={24}
-            alt="Next Page"
+            alt="arrow "
             className="rotate-180"
           />
         </Button>

@@ -5,6 +5,7 @@ import { StatCard } from "@/components/StatCard";
 import { columns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/DataTable";
 import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
+import PatientDataFetcher from "@/components/PatientDataFetcher";
 // import AdminDashboard from "./AdminDashboard";
 
 const AdminPage = async () => {
@@ -56,7 +57,7 @@ const AdminPage = async () => {
         </section>
 
         <DataTable columns={columns} data={appointments.documents} />
-        {/* <AdminDashboard appointments={appointments} /> */}
+        <PatientDataFetcher />
       </main>
     </div>
   );
