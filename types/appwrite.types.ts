@@ -1,6 +1,11 @@
 import { Models } from "node-appwrite";
+import { ReactNode } from "react";
 
 export interface Patient extends Models.Document {
+  someValue: ReactNode;
+  city: any;
+  district: any;
+  state: any;
   userId: string;
   name: string;
   email: string;
