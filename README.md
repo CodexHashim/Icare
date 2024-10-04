@@ -959,8 +959,3 @@ export const StatusIcon = {
 ```
 
 </details>
-
-19281/fed352ad-f27b-400d-9b8f-c7fe628acb84" alt="Project Banner">
-</a>
-
-#
